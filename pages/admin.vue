@@ -15,6 +15,27 @@
                 <v-btn v-on:click='createUser'>追加</v-btn>
               </v-col>
             </v-row>
+            <v-row>
+              <v-col cols="3" sm="3" md="3">
+                <v-btn v-on:click='fetchUsers'>更新</v-btn>
+              </v-col>
+            </v-row>
+            <div v-for="user in users" :key="user.id">
+              <v-row>
+                <v-col cols="5" sm="5" md="5">
+                  <v-text-field v-model="user.name" />
+                </v-col>
+                <v-col cols="3" sm="3" md="3">
+                  <v-text-field v-model="user.number" />
+                </v-col>
+                <v-col cols="2" sm="2" md="2">
+                  <v-btn v-on:click="editUser(user)">編集</v-btn>
+                </v-col>
+                <v-col cols="2" sm="2" md="2">
+                  <v-btn v-on:click="deleteUser(user)">削除</v-btn>
+                </v-col>
+              </v-row>
+            </div>
           </v-container>
         </v-card-text>
       </v-card>
@@ -23,9 +44,6 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
   // POST - https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote
   // GET - https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote
   // GET - https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote/{id}
@@ -39,11 +57,34 @@ export default {
       users: []
     }
   },
+  mounted() {
+    this.fetchUsers()
+  },
   methods: {
+    async fetchUsers() {
+      await this.$axios.$get('/dev/vooote')
+      .then(response => {
+        this.users = response.sort(i => i.id)
+      })
+    },
     async createUser() {
-      console.log(this.newUser);
-      await this.$axios.$post('https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote',{'name': this.newUser, 'number': 0}).then(response => {
-        console.log(response)
+      await this.$axios.$post('/dev/vooote',{'name': this.newUser, 'number': 0})
+      .then(response => {
+        this.users.push(response);
+      })
+    },
+    async editUser(user) {
+      const url = '/dev/vooote/' + user.id
+      await this.$axios.$put(url,{'name': user.name, 'number': user.number}).then(response => {
+        const index = this.users.findIndex(user => user.id === response.id)
+        this.users.splice(index, 1, response);
+      })
+    },
+    async deleteUser(user) {
+      const url = '/dev/vooote/' + user.id
+      await this.$axios.$delete(url).then(response => {
+        const index = this.users.findIndex(user => user.id === response.id)
+        this.users.splice(index, 1);
       })
     },
   }

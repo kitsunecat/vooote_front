@@ -38,8 +38,9 @@ export default {
   modules: [
     '@nuxtjs/axios',
   ],
-  axios: {
-    // proxy: true
+  axios: { proxy: true },
+  proxy: {
+    "/dev/": "https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/",
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
