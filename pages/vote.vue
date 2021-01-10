@@ -40,14 +40,14 @@ export default {
   },
   methods: {
     async fetchUsers() {
-      await this.$axios.$get('/dev/vooote')
+      await this.$axios.$get('https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote')
       .then(response => {
         this.users = response.sort(i => i.id)
       })
     },
     async voteUser(user) {
       await this.fetchUsers;
-      const url = '/dev/vooote/' + user.id
+      const url = 'https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote/' + user.id
       await this.$axios.$put(url,{'name': user.name, 'number': Number(user.number + 1)}).then(response => {
         const index = this.users.findIndex(user => user.id === response.id)
         this.users.splice(index, 1, response);

@@ -68,20 +68,20 @@ export default {
       })
     },
     async createUser() {
-      await this.$axios.$post('/dev/vooote',{'name': this.newUser, 'number': 0})
+      await this.$axios.$post('https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote',{'name': this.newUser, 'number': 0})
       .then(response => {
         this.users.push(response);
       })
     },
     async editUser(user) {
-      const url = '/dev/vooote/' + user.id
+      const url = 'https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote/' + user.id
       await this.$axios.$put(url,{'name': user.name, 'number': user.number}).then(response => {
         const index = this.users.findIndex(user => user.id === response.id)
         this.users.splice(index, 1, response);
       })
     },
     async deleteUser(user) {
-      const url = '/dev/vooote/' + user.id
+      const url = 'https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote/' + user.id
       await this.$axios.$delete(url).then(response => {
         const index = this.users.findIndex(user => user.id === response.id)
         this.users.splice(index, 1);
