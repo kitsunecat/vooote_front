@@ -40,7 +40,12 @@ export default {
   ],
   axios: { proxy: true },
   proxy: {
-    "/dev/": "https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/",
+    "/dev/": {
+      target: "https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/", 
+      pathRewrite: {
+        '^/api': '/'
+      }
+    },
   },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
