@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     async fetchUsers() {
-      await this.$axios.$get('/dev/vooote')
+      await this.$axios.$get('https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote')
       .then(response => {
         this.users = response.sort(i => i.id)
       })

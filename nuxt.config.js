@@ -38,15 +38,15 @@ export default {
   modules: [
     '@nuxtjs/axios',
   ],
-  axios: { proxy: true },
-  proxy: {
-    "/dev/": {
-      target: "https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/", 
-      pathRewrite: {
-        '^/api': '/'
-      }
-    },
-  },
+  axios: { proxy: false },
+  // proxy: {
+  //   "/dev/": {
+  //     target: "https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/", 
+  //     pathRewrite: {
+  //       '^/api': '/'
+  //     }
+  //   },
+  // },
 
   // Vuetify module configuration (https://go.nuxtjs.dev/config-vuetify)
   vuetify: {
