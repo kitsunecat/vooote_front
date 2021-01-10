@@ -48,7 +48,7 @@ export default {
     async voteUser(user) {
       await this.fetchUsers;
       const url = '/dev/vooote/' + user.id
-      await this.$axios.$put(url,{'name': user.name, 'number': user.number + 1}).then(response => {
+      await this.$axios.$put(url,{'name': user.name, 'number': Number(user.number + 1)}).then(response => {
         const index = this.users.findIndex(user => user.id === response.id)
         this.users.splice(index, 1, response);
       })
