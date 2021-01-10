@@ -46,11 +46,12 @@ export default {
       })
     },
     async voteUser(user) {
-      await this.fetchUsers;
       const url = 'https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote/' + user.id
-      await this.$axios.$put(url,{'name': user.name, 'number': Number(user.number + 1)}).then(response => {
-        const index = this.users.findIndex(user => user.id === response.id)
-        this.users.splice(index, 1, response);
+      await this.$axios.$get(url).then(async response => {
+        await this.$axios.$put(url,{'name': response.name, 'number': Number(response.number + 1)}).then(response => {
+          const index = this.users.findIndex(user => user.id === response.id)
+          this.users.splice(index, 1, response);
+        })
       })
     },
     style(width) {
