@@ -57,10 +57,8 @@ export default {
       users: []
     }
   },
-  created() {
-    setInterval(() => {
-      this.fetchUsers()
-    }, 1000)
+  mounted() {
+    this.fetchUsers()
   },
   methods: {
     async fetchUsers() {
