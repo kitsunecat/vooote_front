@@ -57,8 +57,10 @@ export default {
       users: []
     }
   },
-  mounted() {
-    this.fetchUsers()
+  created() {
+    setInterval(() => {
+      this.fetchUsers()
+    }, 1000)
   },
   methods: {
     async fetchUsers() {
@@ -81,7 +83,7 @@ export default {
       })
     },
     async deleteUser(user) {
-      const url = 'https://vizzduwbk3.execute-api.ap-northeast-1.amazonaws.com/dev/vooote/' + user.id
+      const url = '/dev/vooote/' + user.id
       await this.$axios.$delete(url).then(response => {
         const index = this.users.findIndex(user => user.id === response.id)
         this.users.splice(index, 1);
