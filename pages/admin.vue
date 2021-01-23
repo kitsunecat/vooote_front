@@ -22,10 +22,13 @@
             </v-row>
             <div v-for="user in users" :key="user.id">
               <v-row>
+                <v-col cols="1" sm="1" md="1">
+                  <v-text-field v-model="user.id" />
+                </v-col>
                 <v-col cols="5" sm="5" md="5">
                   <v-text-field v-model="user.name" />
                 </v-col>
-                <v-col cols="3" sm="3" md="3">
+                <v-col cols="2" sm="2" md="2">
                   <v-text-field v-model="user.number" />
                 </v-col>
                 <v-col cols="2" sm="2" md="2">
